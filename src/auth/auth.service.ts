@@ -22,6 +22,7 @@ export class AuthService {
         firstName: dto.firstName,
         lastName: dto.lastName,
         permission: dto.permission,
+        isActive: dto.isActive,
       },
     });
     return user;
