@@ -21,6 +21,7 @@ export class AuthService {
         hashedPassword,
         firstName: dto.firstName,
         lastName: dto.lastName,
+        permission: dto.permission,
       },
     });
     return user;

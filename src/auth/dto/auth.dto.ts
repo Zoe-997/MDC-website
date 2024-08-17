@@ -16,4 +16,8 @@ export class AuthDto {
   @IsString()
   @IsNotEmpty()
   lastName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  permission: string;
 }
