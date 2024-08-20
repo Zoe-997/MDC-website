@@ -3,14 +3,14 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  console.log('localhost: http://localhost:3000');
+  const app = await NestFactory.create(AppModule, { cors: true });
+  console.log('localhost: http://localhost:8000');
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
     }),
   );
   app.enableCors();
-  await app.listen(3000);
+  await app.listen(8000);
 }
 bootstrap();
