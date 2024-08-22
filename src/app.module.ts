@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { SeoModule } from './seo/seo.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { SeoModule } from './seo/seo.module';
       isGlobal: true,
     }),
     SeoModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

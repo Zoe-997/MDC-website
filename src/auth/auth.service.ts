@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { Users } from '@prisma/client';
 
 import { PrismaService } from 'src/prisma/prisma.service';
-import { LoginDto, RegisterDto, UpdateDto } from './dto';
+import { LoginDto, RegisterDto } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -66,7 +66,7 @@ export class AuthService {
     const secret = this.config.get('JWT_SECRET');
 
     const token = await this.jwt.signAsync(payload, {
-      expiresIn: '15m',
+      expiresIn: '48h',
       secret: secret,
     });
 
@@ -76,76 +76,28 @@ export class AuthService {
     };
   }
 
-  async findAll() {
-    const userAll = await this.prisma.users.findMany({
-      select: {
-        id: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        permission: true,
-        isActive: true,
-        hashedPassword: false,
-      },
-    });
-    return userAll;
-  }
+  // async delete(id: string) {
+  //   const user = await this.prisma.users.findUnique({
+  //     where: {
+  //       id: id,
+  //     },
+  //   });
 
-  async findOne(id: string) {
-    const user = await this.prisma.users.findUnique({
-      where: {
-        id: id,
-      },
-      select: {
-        email: true,
-        firstName: true,
-        lastName: true,
-        permission: true,
-        isActive: true,
-        hashedPassword: false,
-      },
-    });
-    return user;
-  }
+  //   if (!user) throw new Error('User not found');
 
-  async update(id: string, dto: UpdateDto) {
-    const user = await this.prisma.users.findUnique({
-      where: {
-        id: id,
-      },
-    });
+  //   const updateData: any = {
+  //     email: user.email,
+  //     firstName: user.firstName,
+  //     lastName: user.lastName,
+  //     permission: user.permission,
+  //     isActive: false,
+  //   };
 
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    if (dto.password) {
-      const isMatch = await argon.verify(user.hashedPassword, dto.password);
-      if (isMatch) {
-        return 'New password is the same as the old password';
-      }
-      dto.password = await argon.hash(dto.password);
-    }
-
-    const updateData: any = { ...dto };
-    if (dto.password) {
-      updateData.hashedPassword = dto.password;
-      delete updateData.password;
-    }
-
-    return this.prisma.users.update({
-      where: {
-        id: id,
-      },
-      data: updateData,
-      select: {
-        email: true,
-        firstName: true,
-        lastName: true,
-        permission: true,
-        isActive: true,
-        hashedPassword: false,
-      },
-    });
-  }
+  //   return this.prisma.users.update({
+  //     where: {
+  //       id: id,
+  //     },
+  //     data: updateData,
+  //   });
+  // }
 }

@@ -1,5 +1,4 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Match } from 'src/commons/validators/match.decorator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class RegisterDto {
   @IsEmail()
@@ -35,27 +34,4 @@ export class LoginDto {
   @IsString()
   @IsNotEmpty()
   password: string;
-}
-
-export class UpdateDto {
-  @IsEmail()
-  @IsOptional()
-  email: string;
-
-  @IsString()
-  @IsOptional()
-  password: string;
-
-  @IsString()
-  @IsOptional()
-  @Match('password', { message: 'Password and Reset Password must match' })
-  resetPassword: string;
-
-  @IsString()
-  @IsOptional()
-  firstName: string;
-
-  @IsString()
-  @IsOptional()
-  lastName: string;
 }
