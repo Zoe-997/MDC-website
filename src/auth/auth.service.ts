@@ -75,29 +75,4 @@ export class AuthService {
       access_token: token,
     };
   }
-
-  // async delete(id: string) {
-  //   const user = await this.prisma.users.findUnique({
-  //     where: {
-  //       id: id,
-  //     },
-  //   });
-
-  //   if (!user) throw new Error('User not found');
-
-  //   const updateData: any = {
-  //     email: user.email,
-  //     firstName: user.firstName,
-  //     lastName: user.lastName,
-  //     permission: user.permission,
-  //     isActive: false,
-  //   };
-
-  //   return this.prisma.users.update({
-  //     where: {
-  //       id: id,
-  //     },
-  //     data: updateData,
-  //   });
-  // }
 }

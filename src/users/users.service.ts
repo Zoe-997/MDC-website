@@ -34,6 +34,7 @@ export class UsersService {
         lastName: true,
         permission: true,
         isActive: true,
+        image: true,
         hashedPassword: false,
       },
     });
@@ -74,12 +75,30 @@ export class UsersService {
         lastName: true,
         permission: true,
         isActive: true,
+        image: true,
         hashedPassword: false,
       },
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const user = await this.prisma.users.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!user) throw new Error('User not found');
+
+    const updateData: any = {
+      isActive: false,
+    };
+
+    return this.prisma.users.update({
+      where: {
+        id: id,
+      },
+      data: updateData,
+    });
   }
 }

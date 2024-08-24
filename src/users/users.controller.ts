@@ -25,27 +25,6 @@ export class UsersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
   }
 }
-
-// @Get('users/all')
-//   GetAllUsers() {
-//     return this.authService.findAll();
-//   }
-
-//   @Get('users/:id')
-//   GetUserById(@Param('id') id: string) {
-//     return this.authService.findOne(id);
-//   }
-
-//   @HttpCode(HttpStatus.OK)
-//   @Put('users/:id/update')
-//   UpdateUser(@Param('id') id: string, @Body() dto: UpdateDto) {
-//     return this.authService.update(id, dto);
-//   }
-
-//   @Delete('users/:id/delete')
-//   DeleteUser(@Param('id') id: string) {
-//     return this.authService.delete(id);
-//   }
