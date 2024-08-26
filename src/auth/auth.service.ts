@@ -37,6 +37,8 @@ export class AuthService {
       },
     });
 
+    console.log('user: ', user);
+
     if (!user.isActive) {
       throw new ForbiddenException(
         'This account has not been activated. Please contact Administrator to activate immediately.',
@@ -57,7 +59,7 @@ export class AuthService {
 
   async loginToken(
     user: Omit<Users, 'hashPassword'>,
-  ): Promise<{ user: Omit<Users, 'hashPassword'>; access_token: string }> {
+  ): Promise<{ user: Omit<Users, 'hashPassword'>; access_token: string; expiration_token: number }> {
     const payload = {
       sub: user.id,
       email: user.email,
@@ -70,9 +72,13 @@ export class AuthService {
       secret: secret,
     });
 
+    const expiresIn = 48 * 60 * 60;
+    const expirationTokenTimestamp = Math.floor(Date.now() / 1000) + expiresIn;
+
     return {
       user: user,
       access_token: token,
+      expiration_token: expirationTokenTimestamp,
     };
   }
 }
