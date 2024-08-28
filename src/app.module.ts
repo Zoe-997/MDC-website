@@ -8,6 +8,7 @@ import { SeoModule } from './seo/seo.module';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { ContactModule } from './contact/contact.module';
+import { BlogsModule } from './blogs/blogs.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ContactModule } from './contact/contact.module';
     UsersModule,
     ProductsModule,
     ContactModule,
+    BlogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
