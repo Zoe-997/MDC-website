@@ -15,13 +15,8 @@ export class BlogsController {
   }
 
   @Get()
-  findAll() {
-    return this.blogsService.findAll();
-  }
-
-  @Get()
-  findAllFilter(@Query('collection') collection?: string, @Query('tag') tag?: string) {
-    return this.blogsService.findAllFilter(collection, tag);
+  findAll(@Query('collection') collectionName?: string, @Query('tag') tag?: string) {
+    return this.blogsService.findAll(collectionName, tag);
   }
 
   @Get(':id')

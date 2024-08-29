@@ -77,8 +77,9 @@ model Blogs {
   collection BlogCollections @relation(fields: [collectionId], references: [id])
 }
 
-model Contact {
+model Contacts {
   id          String @id @default("1") @map("_id")
+  hotline     String
   phone       String
   email       String
   address     String
@@ -88,6 +89,7 @@ model Contact {
   youtube     String
   linkedin    String
   twitter     String
+  type        String
 }
 
 model Products {

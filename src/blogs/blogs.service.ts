@@ -11,39 +11,42 @@ export class BlogsService {
     return 'This action adds a new blog';
   }
 
-  async findAll() {
-    const blogs = await this.prisma.blogs.findMany();
+  async findAll(collectionName?: string, tag?: string) {
+    let collectionIdArray = [];
 
-    return {
-      data: blogs,
-      total: blogs.length,
-    };
-  }
-
-  async findAllFilter(collection?: string, tag?: string) {
-    const conditions = [];
-
-    if (collection) {
-      conditions.push({
-        collection: {
-          name: collection,
+    if (collectionName) {
+      const collectionIds = await this.prisma.blogCollections.findMany({
+        where: {
+          name: collectionName,
+        },
+        select: {
+          id: true,
         },
       });
+
+      collectionIdArray = collectionIds.map((collection) => collection.id);
+    }
+
+    const where: any = {};
+
+    if (collectionIdArray.length > 0) {
+      where.collectionId = {
+        in: collectionIdArray,
+      };
     }
 
     if (tag) {
-      conditions.push({
-        tags: {
-          some: {
-            name: tag,
-          },
+      where.tags = {
+        some: {
+          name: tag,
         },
-      });
+      };
     }
 
     const blogs = await this.prisma.blogs.findMany({
-      where: {
-        AND: conditions,
+      where: where,
+      include: {
+        collection: true,
       },
     });
 

@@ -7,8 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { SeoModule } from './seo/seo.module';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
-import { ContactModule } from './contact/contact.module';
 import { BlogsModule } from './blogs/blogs.module';
+import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
   imports: [
@@ -20,8 +20,8 @@ import { BlogsModule } from './blogs/blogs.module';
     SeoModule,
     UsersModule,
     ProductsModule,
-    ContactModule,
     BlogsModule,
+    ContactsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
